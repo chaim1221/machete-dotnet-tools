@@ -1,5 +1,13 @@
-# Literally the only thing this file does is setup the Azure powershell extension
+# Setup the Azure powershell extension
 # RM stands for Resource Manager
-
 Install-Module AzureRM.NetCore
+
+# Import the module into the PowerShell session
+Import-Module AzureRM.Netcore
+
+# Connect to Azure with an interactive dialog for sign-in
+Connect-AzureRmAccount
+
+# https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_profiles
+# https://docs.microsoft.com/en-us/powershell/azure/context-persistence?view=azurermps-6.8.1
 
