@@ -1,8 +1,8 @@
 # just an example; TODO flesh this out with args
 
-$resourceGroup = "storage-quickstart-resource-group"
+$resourceGroup = "macheteTest"
 $location = "westus"
-$name = "fucking-storage-bro"
+$name = "fuckingazurestoragebro"
 
 $account = (Get-AzureRmContext).Name
 if ([string]::IsNullOrEmpty($account)) {
@@ -28,7 +28,6 @@ function Get-Response {
 }
 
 function Do-It {
-  exit 0
   New-AzureRmStorageAccount -ResourceGroupName $resourceGroup `
     -Name $name `
     -Location $location `
