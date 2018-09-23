@@ -72,13 +72,12 @@ function Main {
     # TODO: check how this looks on the webserver
     $websitename = $_
     write-host "Now deploying $websitename...`n"
-    cp -Force ./temp/payload/* (Join-Path $webserverPath $websitename)
+    Copy-Item -Force ./temp/payload/* (Join-Path $webserverPath $websitename)
   }
 
-  rm payload.zip
-  rm temp/payload/*
-  rm temp/*
-  rmdir temp/payload
+  Remove-Item ./temp/payload/*
+  Remove-Item ./temp/*
+  # rmdir temp/payload # make sure works same on windoze
   rmdir temp
 }
 
