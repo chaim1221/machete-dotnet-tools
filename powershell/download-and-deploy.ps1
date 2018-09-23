@@ -56,7 +56,8 @@ function Main {
   $context = (Get-AzureRmStorageAccount -Name $storageAccountName `
     -ResourceGroupName $resourceGroupName).Context
 
-  Get-AzureStorageBlobContent -Blob "payload.zip" ` # TODO: "naming-convention-$versionTag.zip" `
+                            # TODO: "naming-convention-$versionTag.zip" `
+  Get-AzureStorageBlobContent -Blob "payload.zip" `
     -Container $containerName `
     -Destination $pwd.Path `
     -Context $context
