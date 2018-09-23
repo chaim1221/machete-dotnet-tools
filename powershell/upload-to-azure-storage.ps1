@@ -2,8 +2,8 @@
 $containerName = "handycontainer"
 $resourceGroupName = "macheteTest"
 $storageAccountName = "fuckingazurestoragebro"
-$file = "nonsense.zip"
-$path = ".\payloads\"
+$file = "payload.zip"
+$path = ".\payload\"
 
 try {
 
