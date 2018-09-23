@@ -1,8 +1,9 @@
 # just an example; TODO flesh this out with args
 
-$resourceGroup = "macheteTest"
+$container = "handycontainer"
 $location = "westus"
 $name = "fuckingazurestoragebro"
+$resourceGroup = "macheteTest"
 
 $account = (Get-AzureRmContext).Name
 if ([string]::IsNullOrEmpty($account)) {
@@ -21,18 +22,39 @@ Write-Host "In account $($account)? [y/n]"
 function Get-Response {
   $response = $host.UI.RawUI.ReadKey("IncludeKeyDown")
   switch ($response.character) {
-    "y" { Do-It; break }
+    "y" { Create-StorageAccount; break }
     "n" { exit 0; break }
     default { write-host "`nwtf!? dude you pressed `"$($response.character)`"!"; Get-Response; break }
   }
 }
 
-function Do-It {
-  New-AzureRmStorageAccount -ResourceGroupName $resourceGroup `
-    -Name $name `
-    -Location $location `
-    -SkuName Standard_LRS `
-    -Kind StorageV2
+function Create-StorageAccount {
+  try { # I stop the world! World
+    $ErrorActionPreference = "Stop"
+    Write-Host ""
+    New-AzureRmStorageAccount -ResourceGroupName $resourceGroup `
+      -Name $name `
+      -Location $location `
+      -SkuName Standard_LRS `
+      -Kind StorageV2
+  } catch {
+    write-host "dude! that storage account already exists!"
+  } finally {
+    $ErrorActionPreference = "Continue" # Carry on...
+    Create-Container
+  }
+}
+
+function Create-Container {
+  try { # not to remember any more Nikki Minaj lyrics
+    $ErrorActionPreference = "Stop"
+    $accountContext = (Get-AzureRmStorageAccount -Name $name -ResourceGroupName $resourceGroup).Context
+    New-AzureStorageContainer -Name $container -Context $accountContext -Permission blob
+  } catch {
+    Write-Host "also, the container appears to already exist."
+  } finally {
+    $ErrorActionPreference = "Continue" # Kitty on pink, pretty on fleek
+  }
 }
 
 Get-Response
